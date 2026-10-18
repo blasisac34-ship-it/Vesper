@@ -1,0 +1,119 @@
+[
+  {
+    "version": "1.10.0",
+    "title": "Vesper 1.10 — Secure owner setup",
+    "changes": [
+      "Removed the built-in starter password from the server and documentation; a fresh server now refuses to start until a private owner password is configured.",
+      "Owner setup requires a unique password of at least 12 characters and keeps owner permissions attached to the account ID.",
+      "The Linux hosting installer prompts privately for the owner username and password when they are not configured, then stores them in the server-only .env file.",
+      "Bumped the service-worker cache so web clients receive the security update without deleting saved user data."
+    ]
+  },
+  {
+    "version": "1.9.0",
+    "title": "Vesper 1.9 — Owner account and desktop releases",
+    "changes": [
+      "First-run owner account: username Isaac, with the requested starter password. Existing accounts, playlists, history and settings are not overwritten.",
+      "Owner account can change its username and password in Settings; owner permissions stay attached to the account even after a username change.",
+      "Owner tools show server version, account count, backups and server update controls. Windows installer and GitHub Release auto-update workflow are documented.",
+      "Bumped the service-worker cache to refresh updated app files while preserving saved user data."
+    ]
+  },
+  {
+    "version": "1.8.0",
+    "title": "Vesper 1.8 — Global live radio",
+    "changes": [
+      "Added a dedicated Radio section with popular live stations and a searchable global directory.",
+      "Browse by country, language, and genre; explore stations ordered by listening activity or community votes.",
+      "Live radio plays through Vesper’s audio engine and player bar. Directory data is cached by the provider; stream availability depends on each station."
+    ]
+  },
+  {
+    "version": "1.7.0",
+    "title": "Vesper 1.7 — Tempo detection",
+    "changes": [
+      "Vesper can estimate BPM from music as it plays when audio processing is available, including full-length streams that previously stayed unknown.",
+      "Detected tempos are saved locally for faster recognition next time; no audio is uploaded and no extra YouTube lookups are made.",
+      "Now Playing shows the BPM and identifies Vesper's estimate. Tempo stays unknown when the rhythm signal is too weak or audio analysis is unavailable."
+    ]
+  },
+  {
+    "version": "1.6.0",
+    "title": "Vesper 1.6 — Faster starts",
+    "changes": [
+      "Vesper quietly prepares the top songs from artists you choose during onboarding, so your first plays can start faster.",
+      "Home mix openers and the top five catalog search results are prepared in the background.",
+      "Unmatched songs in Liked Songs and playlists are queued for slow background matching; songs already in the on-disk match cache are skipped.",
+      "Song rows show Queued, Preparing, Ready, or No full match while background preparation runs.",
+      "Background matching is serialized with a 2.2-second gap and pauses when YouTube asks for sign-in. Existing official-version checks and preview settings are preserved."
+    ]
+  },
+  {
+    "version": "1.5.0",
+    "title": "Vesper 1.5",
+    "changes": [
+      "Fixed songs failing to play: YouTube was blocking Vesper as a bot. Vesper now makes far fewer YouTube requests, and can use your browser's YouTube sign-in (Settings › YouTube sign-in).",
+      "Clear messages when YouTube is blocking, instead of “format not supported”, and it no longer skips through your whole queue.",
+      "No more 30-second previews: songs without a full version are skipped (you can choose the clip instead in Settings).",
+      "The lyrics bar is now frosted glass in the song's colours.",
+      "Fixed the lyrics box showing under the artwork when lyrics were off, and a better lyrics layout on Mac and PC."
+    ]
+  },
+  {
+    "version": "1.4.0",
+    "title": "Vesper 1.4",
+    "changes": [
+      "Finds the real full song far more often: searches wider, skips look-alikes before checking, and checks up to 10 versions.",
+      "Official music videos from the artist's own channel now count, and so do exact uploads of the official audio.",
+      "Playlists show Recommended songs based on what's in them, with an Add button.",
+      "When a playlist ends, Autoplay keeps going with songs that match that playlist."
+    ]
+  },
+  {
+    "version": "1.3.0",
+    "title": "Vesper 1.3",
+    "changes": [
+      "Full songs now only play when Vesper can confirm the official release: the real artist's own track, at the right length. Fake, AI, sped-up and look-alike uploads are rejected.",
+      "If no official full version exists, you hear the official 30-second clip instead of a fake.",
+      "Songs saved by older versions are checked again automatically the next time they play.",
+      "Lyrics now come from several sources (LRCLIB, NetEase, Lyrics.ovh), so one being down doesn't matter. Found lyrics are saved and load instantly next time."
+    ]
+  },
+  {
+    "version": "1.2.0",
+    "title": "Vesper 1.2",
+    "changes": [
+      "Add to playlist button next to the heart in Now Playing on phones.",
+      "The lyrics header now stays at the top while lyrics scroll. Fullscreen lyrics removed.",
+      "Fake uploads are hidden: official artist channels come first, and look-alike channels and tiny re-uploads are left out.",
+      "Replay plays your top songs behind each story card, and ends with a Your Top Songs mix you can play or save.",
+      "What's new appears once after each update, on every device.",
+      "Data is backed up every day and before every update, and you stay signed in.",
+      "Vesper can now run on a free cloud server, so your Mac doesn't need to be on.",
+      "The owner can install updates from Settings."
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "title": "Vesper 1.1",
+    "changes": [
+      "Find a song by typing a line of its lyrics (Search › Lyrics).",
+      "Share up to 4 lyric lines as an image in the cover's colours.",
+      "Import playlists from Spotify (Exportify CSV) or Apple Music.",
+      "Show what you're listening to on Discord (Settings › Playback).",
+      "Data saver for full songs, about 22 MB an hour.",
+      "Songs now show their real length and switch faster.",
+      "Calmer and More upbeat now steer Autoplay properly.",
+      "Cleaner iPhone layout."
+    ]
+  },
+  {
+    "version": "1.0.0",
+    "title": "Welcome to Vesper",
+    "changes": [
+      "Vesper desktop app shell for Windows, macOS, and Linux.",
+      "Your local library and saved data are stored separately from the app install.",
+      "Update checks and release notes are built in; updates become available after Vesper releases are published."
+    ]
+  }
+]

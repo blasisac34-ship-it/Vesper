@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1A1B20">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Vesper</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <div class="atmos" aria-hidden="true"><div class="atmos-a"></div><div class="atmos-b"></div></div>
+
+  <div id="app" class="shell" hidden>
+    <nav class="side" aria-label="Main">
+      <a class="brand" href="#/home" aria-label="Vesper home"><svg viewBox="0 0 32 32" class="brand-mark" aria-hidden="true"><path d="M23.5 6.2A11 11 0 1 0 25.8 22 8.6 8.6 0 0 1 23.5 6.2Z" fill="currentColor"/><circle cx="24.6" cy="9.4" r="1.6" fill="currentColor"/></svg><span>Vesper</span></a>
+      <div class="side-group">
+        <a href="#/home" data-nav="home"><i data-icon="home"></i><span>Home</span></a>
+        <a href="#/search" data-nav="search"><i data-icon="search"></i><span>Search</span></a>
+        <a href="#/discover" data-nav="discover"><i data-icon="compass"></i><span>Discover</span></a>
+        <a href="#/charts" data-nav="charts"><i data-icon="chart"></i><span>Charts</span></a>
+        <a href="#/radio-directory" data-nav="radio-directory"><i data-icon="radio"></i><span>Radio</span></a>
+        <a href="#/following" data-nav="following"><i data-icon="users"></i><span>Following</span></a>
+      </div>
+      <div class="side-group">
+        <a href="#/albums" data-nav="albums"><i data-icon="disc"></i><span>Albums</span></a>
+        <a href="#/playlists" data-nav="playlists"><i data-icon="list"></i><span>Playlists</span></a>
+        <a href="#/library" data-nav="library"><i data-icon="library"></i><span>Library</span></a>
+        <a href="#/stats" data-nav="stats"><i data-icon="stats"></i><span>Listening stats</span></a>
+        <a href="#/replay" data-nav="replay"><i data-icon="replay"></i><span>Vesper Replay</span></a>
+        <a href="#/ambience" data-act="ambience-open" data-nav="ambience"><i data-icon="expand"></i><span>Ambience Studio</span></a>
+        <a href="#/settings" data-nav="settings"><i data-icon="settings"></i><span>Settings</span></a>
+      </div>
+      <div class="side-playlists" id="side-playlists"></div>
+    </nav>
+
+    <main class="main" id="main" tabindex="-1"><div id="view" class="view"></div></main>
+
+    <aside class="panel" id="panel" aria-label="Up next and lyrics">
+      <div class="panel-tabs" role="tablist">
+        <button role="tab" data-act="panel-tab" data-tab="queue" aria-selected="true">Up next</button>
+        <button role="tab" data-act="panel-tab" data-tab="lyrics" aria-selected="false">Lyrics</button>
+        <button class="icon-btn panel-close" data-act="panel-close" aria-label="Hide panel"><i data-icon="close"></i></button>
+      </div>
+      <div class="panel-body" id="panel-body"></div>
+    </aside>
+
+    <footer class="player" id="player" aria-label="Player">
+      <div class="p-track">
+        <button class="p-art" data-act="np-open" aria-label="Open Now Playing"><img id="p-art" alt=""></button>
+        <div class="p-meta" data-act="p-meta"><a id="p-title" class="p-title" href="#"></a><span class="p-sub"><span id="p-badge" class="badge" hidden></span><a id="p-artist" class="p-artist" href="#"></a></span></div>
+        <button class="icon-btn" id="p-like" data-act="like-current" aria-label="Like" title="Add to Liked Songs"><i data-icon="heart"></i></button>
+        <button class="icon-btn p-add-playlist" id="p-add-playlist" data-act="add-current-to-playlist" aria-label="Add current song to a playlist" title="Add to playlist"><i data-icon="plus"></i></button>
+      </div>
+      <div class="p-center">
+        <div class="p-controls">
+          <button class="icon-btn" data-act="shuffle" id="p-shuffle" aria-label="Shuffle" aria-pressed="false"><i data-icon="shuffle"></i></button>
+          <button class="icon-btn" data-act="prev" aria-label="Previous"><i data-icon="prev"></i></button>
+          <button class="play-btn" data-act="toggle" id="p-play" aria-label="Play"><i data-icon="play"></i></button>
+          <button class="icon-btn" data-act="next" aria-label="Next"><i data-icon="next"></i></button>
+          <button class="icon-btn" data-act="repeat" id="p-repeat" aria-label="Repeat: off"><i data-icon="repeat"></i></button>
+        </div>
+        <div class="p-progress">
+          <span class="time" id="p-pos">0:00</span>
+          <input type="range" class="seek" id="p-seek" min="0" max="1000" value="0" step="1" aria-label="Seek">
+          <span class="time" id="p-dur">0:00</span>
+        </div>
+        <div class="p-status" id="p-status" aria-live="polite"></div>
+      </div>
+      <div class="p-right">
+        <button class="text-btn" data-act="speed-menu" id="p-speed" aria-label="Playback speed">1×</button>
+        <button class="icon-btn" data-act="transition-menu" aria-label="Transition settings"><i data-icon="blend"></i></button>
+        <button class="icon-btn" data-act="audio-panel" aria-label="Equalizer and audio settings"><i data-icon="eq"></i></button>
+        <button class="icon-btn" data-act="panel-tab" data-tab="lyrics" aria-label="Lyrics"><i data-icon="lyrics"></i></button>
+        <button class="text-btn p-ambience" data-act="ambient-menu" id="p-ambience" aria-label="Change Now Playing ambience" title="Change Now Playing ambience">Ambient</button>
+        <button class="icon-btn" data-act="panel-tab" data-tab="queue" aria-label="Up next"><i data-icon="queue"></i></button>
+        <button class="icon-btn p-output" id="p-output" data-act="output-menu" aria-label="Choose audio output" title="Audio output: choose headphones or speakers"><i data-icon="headphones"></i><span class="p-output-label">Output</span></button>
+        <button class="icon-btn p-amb-studio" data-act="ambience-open" aria-label="Open Ambience Studio" title="Ambience Studio"><i data-icon="expand"></i></button>
+        <button class="icon-btn" data-act="mute" id="p-mute" aria-label="Mute"><i data-icon="volume"></i></button>
+        <input type="range" class="vol" id="p-vol" min="0" max="100" value="80" aria-label="Volume" title="Volume">
+      </div>
+    </footer>
+
+    <nav class="tabbar" aria-label="Main">
+      <a href="#/home" data-nav="home"><i data-icon="home"></i><span>Home</span></a>
+      <a href="#/search" data-nav="search"><i data-icon="search"></i><span>Search</span></a>
+      <a href="#/discover" data-nav="discover"><i data-icon="compass"></i><span>Discover</span></a>
+      <a href="#/radio-directory" data-nav="radio-directory"><i data-icon="radio"></i><span>Radio</span></a>
+      <a href="#/library" data-nav="library"><i data-icon="library"></i><span>Library</span></a>
+      <button data-act="more-nav"><i data-icon="more"></i><span>More</span></button>
+    </nav>
+  </div>
+
+  <section id="np" class="np" hidden aria-label="Now playing" role="dialog" aria-modal="true"></section>
+  <div id="auth" class="auth" hidden></div>
+  <!-- YouTube's official player: one element, shown over Now Playing or docked; never covered or hidden while loaded. -->
+  <div id="yt-host" class="yt-host" hidden><div id="yt-mount"></div></div>
+  <div id="yt-dock" class="yt-dock" hidden aria-label="YouTube video"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="menu-layer"></div>
+  <dialog id="dialog" class="dialog"></dialog>
+  <dialog id="audio-dialog" class="dialog audio-dialog" aria-label="Audio settings"></dialog>
+  <section id="story" class="story" hidden aria-label="Vesper Replay story" role="dialog" aria-modal="true"></section>
+  <div id="decks" hidden></div>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Vesper — Artwork, Studios & Mood-to-Mix 2.0 Update
+
+## What changed
+- **Shared artwork service (server + client).** `/api/artwork/artists` and `/api/artwork/covers`, plus `public/js/artwork.js`, now supply every artist picture and collection cover. Lookups are batched, de-duplicated, cached on disk (`data/artwork-cache.json`) and in the browser, and validated. Artist portraits come only from an exact artist match on Deezer (same name → most-followed artist), never from album covers. Deezer's blank "no picture" image is rejected.
+- **Artist pictures everywhere.** The shared `artistTile()` (Home, Search, Charts, Following, Library, artist pages) and the onboarding cards now use the shared portrait renderer. Initials are gone; a neutral silhouette appears only after a real lookup fails.
+- **Playlist covers everywhere.** Sessions, Daily/Made-for-you mixes, your playlists, Liked Songs, saved sessions, Mood-to-Mix results and albums without a cover use the collection's own cover, otherwise a 1/2/3/4-image collage of distinct covers from the tracks actually in that collection. No empty or broken cells. Daily Mixes prefer covers no other mix is using.
+- **Audio output control.** A visible "Output" button (headphone icon) in the player bar. The old device button was hidden by a CSS breakpoint. It lists output devices, routes Vesper's audio where the browser supports it, and only reports a device as active after the browser confirms the switch. Otherwise it explains how to choose headphones in macOS Control Center (or AirPlay on iPhone).
+- **3D Headphones** (sidebar). A real 3D over-ear headphone model built from procedural geometry and rendered with WebGL, with no external libraries. Rotate (drag / arrow keys), zoom (scroll / pinch / slider), 8 colours plus custom, 4 finishes, 3 cushion materials, light, glow and glow colour, Still / Spin / Float animations, 5 scenes, and an optional glow that reacts to the music when Vesper's audio engine can analyse it. Settings persist. It respects Reduce Motion and has a fallback when WebGL isn't available.
+- **Ambience Studio** (sidebar, or the expand icon in the player). Full-screen artwork view with glow, blur, intensity, slow motion, visualizer and four styles (Aura, Vinyl, Cinema, Minimal), plus progress, play/pause, previous/next and volume. The visualizer is audio-reactive only when real analysis is available; otherwise it says so and shows a labelled, non-reactive breathing glow.
+- **Mood-to-Mix 2.0.** Interprets genre, mood, energy and "like <artist>". It defines the mood's sound by the artists that recur in title-matched catalog playlists, then ranks candidates using your liked songs, followed and most-played artists, skips and "less like this". It filters type-beat, instrumental, slowed and re-upload versions, caps two songs per artist and interleaves familiar songs with discoveries. Familiar↔New and Energy controls, Refresh (avoids recent plays), and Save as playlist. It returns a shorter mix rather than filler, and each song shows why it was picked.
+- **Home.** New "New from your artists" shelf (releases from followed artists), distinct Daily Mix collages, and Mood-to-Mix controls.
+- **Navigation bug fixed.** Each page now renders into its own container, so a slow page (e.g. Home) can no longer overwrite the page you navigated to.
+
+## Not changed
+- The yt-dlp YouTube extraction pipeline is untouched, and this update does not include work on the iPhone early-silence issue.
+
+## Follow-up fix
+- 3D Headphones and Ambience Studio opened Home because the service worker served old cached JavaScript (cache-first). It is now network-first with an automatic update-and-reload, so future updates apply immediately. `#/ambience` is now a real route.

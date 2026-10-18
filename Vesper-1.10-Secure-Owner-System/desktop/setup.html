@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Set up Vesper</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<style>
+  body { margin: 0; height: 100vh; display: grid; place-items: center; background: #1a1b20; color: #f3f0ea; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { width: min(440px, 90vw); }
+  h1 { font-size: 28px; margin: 0 0 6px; }
+  p { color: #b9b6c4; margin: 0 0 18px; }
+  label { display: block; font-size: 13px; color: #b9b6c4; margin-bottom: 6px; }
+  input { width: 100%; box-sizing: border-box; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #3a3b46; background: #24252c; color: inherit; font: inherit; }
+  button { height: 44px; padding: 0 18px; border-radius: 999px; border: 0; font: 600 15px system-ui, sans-serif; cursor: pointer; }
+  .primary { background: #b9a4f5; color: #17141f; width: 100%; margin-top: 12px; }
+  .ghost { background: none; color: #b9b6c4; width: 100%; margin-top: 18px; }
+  .err { color: #ff9f9f; min-height: 22px; margin-top: 8px; font-size: 14px; }
+</style></head><body><main>
+  <h1>Welcome to Vesper</h1>
+  <p>Enter your Vesper server’s address to use the same account, playlists and history as your phone.</p>
+  <form id="f"><label for="u">Server address</label><input id="u" placeholder="https://your-name.duckdns.org" autofocus required>
+  <div class="err" id="e"></div><button class="primary">Connect</button></form>
+  <button class="ghost" id="local">Run Vesper on this computer instead</button>
+</main><script>
+  const e = document.getElementById('e');
+  document.getElementById('f').addEventListener('submit', async (ev) => {
+    ev.preventDefault(); e.textContent = 'Connecting…';
+    const r = await window.vesperSetup.useServer(document.getElementById('u').value.trim());
+    if (!r.ok) e.textContent = r.error;
+  });
+  document.getElementById('local').addEventListener('click', () => window.vesperSetup.useLocal());
+</script></body></html>
